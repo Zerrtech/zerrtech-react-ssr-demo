@@ -1,5 +1,4 @@
 import React from "react";
-import Spinner from "react-spinkit";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
@@ -31,7 +30,7 @@ class HeroItem extends React.Component {
     const { hero, loading } = this.state;
 
     if (loading || !hero) {
-      return <Spinner name="circle" />;
+      return <div>Loading...</div>;
     }
 
     return (
