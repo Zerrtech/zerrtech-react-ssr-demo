@@ -1,13 +1,18 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import HeroList from "./HeroList";
-import HeroItem from "./HeroItem";
+import routes from "./RouteList";
 
 const Routes = () => (
   <div className="container-fluid">
     <Switch>
-      <Route exact path="/" component={HeroList} />
-      <Route exact path="/:id" component={HeroItem} />
+      {routes.map(route => (
+        <Route
+          key={route.path}
+          exact={route.exact}
+          path={route.path}
+          component={route.component}
+        />
+      ))}
     </Switch>
   </div>
 );

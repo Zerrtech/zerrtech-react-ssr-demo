@@ -9,21 +9,34 @@ class HeroItem extends React.Component {
       hero: null,
       loading: true
     };
+    if (this.props.staticContext && this.props.staticContext.initialState) {
+      this.state = Object.assign(
+        this.state,
+        this.props.staticContext.initialState
+      );
+    }
   }
 
-  async getHero(id) {
-    this.setState({ loading: true });
+  static async getInitialState(matchParams) {
+    const hero = await HeroItem.getHero(matchParams.id);
+    return {
+      hero,
+      loading: false
+    };
+  }
+
+  static async getHero(id) {
     const heroResponse = await fetch(
       `https://angular-1-training-class-api.herokuapp.com/heroes/${id}`
     );
-    this.setState({ loading: false });
     return heroResponse.json();
   }
 
   async componentDidMount() {
     const { match } = this.props;
-    const hero = await this.getHero(match.params.id);
-    this.setState({ hero });
+    this.setState({ loading: true });
+    const initialState = await HeroItem.getInitialState(match.params);
+    this.setState(initialState);
   }
 
   render() {

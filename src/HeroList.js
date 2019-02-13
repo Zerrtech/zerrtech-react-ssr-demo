@@ -9,20 +9,34 @@ class HeroList extends React.Component {
       heroes: [],
       loading: true
     };
+    if (this.props.staticContext && this.props.staticContext.initialState) {
+      this.state = Object.assign(
+        this.state,
+        this.props.staticContext.initialState
+      );
+    }
   }
 
-  async getHeroes() {
-    this.setState({ loading: true });
+  static async getInitialState(matchParams) {
+    const heroes = await HeroList.getHeroes();
+    return {
+      heroes,
+      loading: false
+    };
+  }
+
+  static async getHeroes() {
     const heroesResponse = await fetch(
       "https://angular-1-training-class-api.herokuapp.com/heroes"
     );
-    this.setState({ loading: false });
     return heroesResponse.json();
   }
 
   async componentDidMount() {
-    const heroes = await this.getHeroes();
-    this.setState({ heroes });
+    const { match } = this.props;
+    this.setState({ loading: true });
+    const initialState = await HeroList.getInitialState(match.params);
+    this.setState(initialState);
   }
 
   render() {

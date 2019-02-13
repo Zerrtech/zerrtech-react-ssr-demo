@@ -6,6 +6,8 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/register": "^7.0.0",
     "bootstrap": "^4.3.0",
+    "es6-promise": "^4.2.5",
+    "isomorphic-fetch": "^2.2.1",
     "prettier": "^1.16.4",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
