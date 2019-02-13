@@ -1,6 +1,7 @@
 import React from "react";
 import Spinner from "react-spinkit";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 class HeroList extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class HeroList extends React.Component {
 
     return (
       <>
+        <Helmet title="Star Wars Heroes - List" />
         <h1>These are all my Star Wars heroes!</h1>
         {heroes.map(hero => (
           <div key={hero.id} className="card card-hero">

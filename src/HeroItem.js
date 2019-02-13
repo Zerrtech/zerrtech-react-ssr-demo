@@ -1,6 +1,7 @@
 import React from "react";
 import Spinner from "react-spinkit";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 class HeroItem extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class HeroItem extends React.Component {
     return (
       <>
         <h1>You are my hero!</h1>
+        <Helmet title={`Star Wars Heroes - ${hero.name}`} />
         <div className="card bg-dark text-white">
           <img src={hero.imageUrl} className="card-img" alt={hero.name} />
           <div className="card-img-overlay">
