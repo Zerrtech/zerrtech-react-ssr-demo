@@ -18,6 +18,18 @@ class HeroItem extends React.Component {
   }
 
   static async getInitialState(matchParams) {
+    if (
+      typeof window !== "undefined" &&
+      window.__INITIAL_STATE__ &&
+      window.__INITIAL_STATE__ !== "__INITIAL_STATE__"
+    ) {
+      const initialState = window.__INITIAL_STATE__;
+      // need to delete the initial state so that subsequent
+      // navigations do not think they were server side rendered
+      // and pull up the wrong initial state
+      delete window.__INITIAL_STATE__;
+      return initialState;
+    }
     const hero = await HeroItem.getHero(matchParams.id);
     return {
       hero,

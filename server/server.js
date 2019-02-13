@@ -54,15 +54,16 @@ app.get("*", (req, res) => {
         return res.status(500).send("Index file not found!");
       }
       res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(htmlTemplate(data, dom, helmet));
+      res.end(htmlTemplate(data, dom, helmet, context.initialState));
     });
   });
 });
 
 app.listen(5000);
 
-function htmlTemplate(data, dom, helmet) {
+function htmlTemplate(data, dom, helmet, initialState) {
   return data
     .replace('<div id="root"></div>', `<div id="root">${dom}</div>`)
-    .replace(/<title>.*?<\/title>/g, helmet.title.toString());
+    .replace(/<title>.*?<\/title>/g, helmet.title.toString())
+    .replace('"__INITIAL_STATE__"', JSON.stringify(initialState));
 }
